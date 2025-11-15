@@ -68,7 +68,40 @@ void Game::playTurn() {
     std::cin >> input1;
     
     if (input1 == "quit" || input1 == "exit" || input1 == "q") {
-        gameOver = true;
+        // Handle quit/resignation properly
+        std::cout << "\n" << currentPlayer->getName() << ", do you want to:\n";
+        std::cout << "1. Resign (opponent wins)\n";
+        std::cout << "2. Offer draw (both players must agree)\n";
+        std::cout << "3. Cancel and continue playing\n";
+        std::cout << "Enter choice (1-3): ";
+        
+        std::string choice;
+        std::cin >> choice;
+        
+        if (choice == "1") {
+            // Current player resigns, opponent wins
+            gameOver = true;
+            Player* winnerPlayer = (currentPlayer == &whitePlayer) ? &blackPlayer : &whitePlayer;
+            winner = winnerPlayer->getName();
+            std::cout << "\n" << currentPlayer->getName() << " resigns. " << winner << " wins!\n";
+        } else if (choice == "2") {
+            // Offer draw
+            std::cout << "\n" << currentPlayer->getName() << " offers a draw.\n";
+            Player* opponent = (currentPlayer == &whitePlayer) ? &blackPlayer : &whitePlayer;
+            std::cout << opponent->getName() << ", do you accept the draw? (y/n): ";
+            
+            std::string response;
+            std::cin >> response;
+            
+            if (response == "y" || response == "Y" || response == "yes") {
+                gameOver = true;
+                std::cout << "\nDraw agreed by both players.\n";
+            } else {
+                std::cout << "\nDraw offer declined. Game continues.\n";
+            }
+        } else {
+            std::cout << "\nContinuing game...\n";
+        }
         return;
     }
 
