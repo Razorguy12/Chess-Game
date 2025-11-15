@@ -34,10 +34,12 @@ void Game::start() {
 void Game::playTurn() {
     board.display();
     
-    std::string colorName = (currentPlayer == Color::WHITE) ? "White" : "Black";
-    std::cout << colorName << "'s turn";
+    std::cout << currentPlayer->getName() << "'s turn";
     
-    if (board.isInCheck(currentPlayer)) {
+    bool inCheck = board.isInCheck(currentPlayer->getColor());
+    currentPlayer->setIsInCheck(inCheck);
+    
+    if (inCheck) {
         std::cout << " (in CHECK!)";
     }
     std::cout << "\nEnter move: ";
@@ -80,7 +82,7 @@ bool Game::makeMove(const std::string& from, const std::string& to) {
         throw ChessException("No piece at that position!");
     }
     
-    if (piece->getColor() != currentPlayer) {
+    if (piece->getColor() != currentPlayer->getColor()) {
         throw ChessException("That's not your piece!");
     }
     
@@ -89,8 +91,22 @@ bool Game::makeMove(const std::string& from, const std::string& to) {
     }
     
     // Check if move would leave king in check
-    if (board.wouldBeInCheck(fromPos, toPos, currentPlayer)) {
+    if (board.wouldBeInCheck(fromPos, toPos, currentPlayer->getColor())) {
         throw ChessException("Move would leave king in check!");
+    }
+    
+    // Check for captured piece BEFORE moving
+    Piece* capturedPiece = board.getPiece(toPos);
+    if (capturedPiece && capturedPiece->getColor() != currentPlayer->getColor()) {
+        // Calculate piece value (simplified: Pawn=1, Knight/Bishop=3, Rook=5, Queen=9, King=0)
+        int pieceValue = 0;
+        std::string pieceName = capturedPiece->getName();
+        if (pieceName == "Pawn") pieceValue = 1;
+        else if (pieceName == "Knight" || pieceName == "Bishop") pieceValue = 3;
+        else if (pieceName == "Rook") pieceValue = 5;
+        else if (pieceName == "Queen") pieceValue = 9;
+        
+        currentPlayer->addCapturedPieceValue(pieceValue);
     }
     
     // Check for en passant BEFORE moving
@@ -163,15 +179,15 @@ void Game::handleCastling(const std::string& command) {
     bool kingSide = (command == "kingside");
     
     if (kingSide) {
-        if (!SpecialMoves::canCastleKingSide(currentPlayer, board)) {
+        if (!SpecialMoves::canCastleKingSide(currentPlayer->getColor(), board)) {
             throw ChessException("Cannot castle kingside!");
         }
-        SpecialMoves::performCastling(currentPlayer, true, board);
+        SpecialMoves::performCastling(currentPlayer->getColor(), true, board);
     } else {
-        if (!SpecialMoves::canCastleQueenSide(currentPlayer, board)) {
+        if (!SpecialMoves::canCastleQueenSide(currentPlayer->getColor(), board)) {
             throw ChessException("Cannot castle queenside!");
         }
-        SpecialMoves::performCastling(currentPlayer, false, board);
+        SpecialMoves::performCastling(currentPlayer->getColor(), false, board);
     }
     
     board.clearEnPassant();
@@ -203,13 +219,16 @@ bool Game::hasValidMoves(Color color) {
 }
 
 void Game::checkGameStatus() {
-    bool inCheck = board.isInCheck(currentPlayer);
-    bool hasLegalMoves = hasValidMoves(currentPlayer);
+    bool inCheck = board.isInCheck(currentPlayer->getColor());
+    currentPlayer->setIsInCheck(inCheck);
+    bool hasLegalMoves = hasValidMoves(currentPlayer->getColor());
     
     if (!hasLegalMoves) {
         gameOver = true;
         if (inCheck) {
-            winner = (currentPlayer == Color::WHITE) ? "Black" : "White";
+            // The other player wins
+            Player* winnerPlayer = (currentPlayer == &whitePlayer) ? &blackPlayer : &whitePlayer;
+            winner = winnerPlayer->getName();
             std::cout << "\nCheckmate! " << winner << " wins!\n";
         } else {
             std::cout << "\nStalemate! It's a draw!\n";

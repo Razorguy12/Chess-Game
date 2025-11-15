@@ -10,6 +10,7 @@ SOURCES = $(SRCDIR)/board.cpp \
           $(SRCDIR)/game.cpp \
           $(SRCDIR)/Pieces.cpp \
           $(SRCDIR)/SpecialMoves.cpp \
+          $(SRCDIR)/Player.cpp \
           main.cpp
 
 # Object files
@@ -17,6 +18,7 @@ OBJECTS = $(OBJDIR)/board.o \
           $(OBJDIR)/game.o \
           $(OBJDIR)/Pieces.o \
           $(OBJDIR)/SpecialMoves.o \
+          $(OBJDIR)/Player.o \
           $(OBJDIR)/main.o
 
 # Target executable
@@ -33,7 +35,10 @@ $(OBJDIR):
 $(OBJDIR)/board.o: $(SRCDIR)/board.cpp $(INCDIR)/Board.h $(INCDIR)/Pieces.h $(INCDIR)/Position.h | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJDIR)/game.o: $(SRCDIR)/game.cpp $(INCDIR)/Game.h $(INCDIR)/Board.h $(INCDIR)/SpecialMoves.h | $(OBJDIR)
+$(OBJDIR)/game.o: $(SRCDIR)/game.cpp $(INCDIR)/Game.h $(INCDIR)/Board.h $(INCDIR)/SpecialMoves.h $(INCDIR)/Player.h | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(OBJDIR)/Player.o: $(SRCDIR)/Player.cpp $(INCDIR)/Player.h $(INCDIR)/Pieces.h | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OBJDIR)/Pieces.o: $(SRCDIR)/Pieces.cpp $(INCDIR)/Pieces.h $(INCDIR)/Position.h $(INCDIR)/Board.h | $(OBJDIR)
