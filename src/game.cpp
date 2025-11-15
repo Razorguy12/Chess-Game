@@ -2,12 +2,29 @@
 #include <iostream>
 #include <cctype>
 #include <algorithm>
+#include <string>
 
 void Game::start() {
     std::cout << "=================================\n";
     std::cout << "    Welcome to CLI Chess Game    \n";
     std::cout << "=================================\n\n";
-    std::cout << "Commands:\n";
+    
+    // Get player names
+    std::string whiteName, blackName;
+    std::cout << "Enter name for White player: ";
+    std::getline(std::cin, whiteName);
+    if (whiteName.empty()) whiteName = "White";
+    
+    std::cout << "Enter name for Black player: ";
+    std::getline(std::cin, blackName);
+    if (blackName.empty()) blackName = "Black";
+    
+    // Set player names
+    whitePlayer.setName(whiteName);
+    blackPlayer.setName(blackName);
+    
+    std::cout << "\n" << whiteName << " (White) vs " << blackName << " (Black)\n";
+    std::cout << "\nCommands:\n";
     std::cout << "  - Move: e2 e4\n";
     std::cout << "  - Castle Kingside: O-O or 0-0\n";
     std::cout << "  - Castle Queenside: O-O-O or 0-0-0\n";
@@ -23,12 +40,15 @@ void Game::start() {
         }
     }
     
-    std::cout << "\nGame Over! ";
+    std::cout << "\n=================================\n";
+    std::cout << "         Game Over!\n";
+    std::cout << "=================================\n";
     if (!winner.empty()) {
-        std::cout << winner << " wins!\n";
+        std::cout << "Winner: " << winner << "!\n";
     } else {
-        std::cout << "Draw!\n";
+        std::cout << "Result: Draw!\n";
     }
+    std::cout << "=================================\n";
 }
 
 void Game::playTurn() {
@@ -47,8 +67,13 @@ void Game::playTurn() {
     std::string input1, input2;
     std::cin >> input1;
     
-    if (input1 == "quit" || input1 == "exit") {
+    if (input1 == "quit" || input1 == "exit" || input1 == "q") {
         gameOver = true;
+        return;
+    }
+
+    if (input1.length() == 4) {
+        std::cout << "Invalid Format!!! try again" << std::endl;
         return;
     }
     
@@ -229,9 +254,11 @@ void Game::checkGameStatus() {
             // The other player wins
             Player* winnerPlayer = (currentPlayer == &whitePlayer) ? &blackPlayer : &whitePlayer;
             winner = winnerPlayer->getName();
-            std::cout << "\nCheckmate! " << winner << " wins!\n";
+            std::cout << "\nCheckmate! " << currentPlayer->getName() << " is in checkmate.\n";
+            std::cout << winner << " wins the game!\n";
         } else {
-            std::cout << "\nStalemate! It's a draw!\n";
+            std::cout << "\nStalemate! " << currentPlayer->getName() << " has no legal moves.\n";
+            std::cout << "The game is a draw!\n";
         }
     }
 }

@@ -2,6 +2,33 @@
 #include "Board.h"
 #include <cmath>
 
+std::string Piece::getSymbol() const {
+    // Unicode chess pieces
+    // White pieces: ♔ ♕ ♖ ♗ ♘ ♙
+    // Black pieces: ♚ ♛ ♜ ♝ ♞ ♟
+    if (color == Color::WHITE) {
+        switch (symbol) {
+            case 'K': return "♔";  // White King
+            case 'Q': return "♕";  // White Queen
+            case 'R': return "♖";  // White Rook
+            case 'B': return "♗";  // White Bishop
+            case 'N': return "♘";  // White Knight
+            case 'P': return "♙";  // White Pawn
+            default: return "?";
+        }
+    } else {
+        switch (symbol) {
+            case 'K': return "♚";  // Black King
+            case 'Q': return "♛";  // Black Queen
+            case 'R': return "♜";  // Black Rook
+            case 'B': return "♝";  // Black Bishop
+            case 'N': return "♞";  // Black Knight
+            case 'P': return "♟";  // Black Pawn
+            default: return "?";
+        }
+    }
+}
+
 bool Pawn::isValidMove(const Position& to, Board& board) const {
     int rowDiff = to.getRow() - position.getRow();
     int colDiff = std::abs(to.getCol() - position.getCol());

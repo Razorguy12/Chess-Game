@@ -47,12 +47,12 @@ void Board::display() const {
             if (squares[i][j]) {
                 std::cout << " " << squares[i][j]->getSymbol() << " |";
             } else {
-                std::cout << " . |";
+                std::cout << "   |";
             }
         }
         std::cout << "\n  +---+---+---+---+---+---+---+---+\n";
     }
-    std::cout << "  a   b   c   d   e   f   g   h\n\n";
+    std::cout << "    a   b   c   d   e   f   g   h\n\n";
 }
 
 Piece* Board::getPiece(const Position& pos) const {

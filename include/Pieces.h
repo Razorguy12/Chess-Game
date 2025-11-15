@@ -17,6 +17,7 @@
 #include "Position.h"
 #include <vector>
 #include <memory>
+#include <string>
 
 /**
  * @enum Color
@@ -76,11 +77,11 @@ public:
     
     /**
      * @brief Gets the display symbol for the piece
-     * @return Character symbol (uppercase for white, lowercase for black)
-     * @details Converts the stored uppercase symbol to lowercase for black pieces
-     * by adding 32 (ASCII difference between uppercase and lowercase)
+     * @return Unicode chess piece string
+     * @details Returns Unicode chess piece symbols: white pieces use filled symbols
+     * (♔ ♕ ♖ ♗ ♘ ♙) and black pieces use outlined symbols (♚ ♛ ♜ ♝ ♞ ♟)
      */
-    virtual char getSymbol() const { return color == Color::WHITE ? symbol : symbol + 32; }
+    virtual std::string getSymbol() const;
     
     /**
      * @brief Pure virtual function to get piece name
