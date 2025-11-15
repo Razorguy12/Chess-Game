@@ -1,0 +1,11 @@
+# Editor
+.vscode
+
+# Directory
+obj/*
+
+# Files
+
+# Executable file
+chess
+chess.exe
