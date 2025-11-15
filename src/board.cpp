@@ -173,7 +173,6 @@ bool Board::wouldBeInCheck(const Position& from, const Position& to, Color color
     
     // Save state
     Piece* movingPiece = getPiece(from);
-    Piece* capturedPiece = getPiece(to);
     bool movingPieceHadMoved = movingPiece->hasMovedBefore();
     
     // Simulate the move
