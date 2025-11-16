@@ -1,5 +1,5 @@
 # Chess-Game
-A C++ Chess Engine with full rules, move validation, and special moves, played in the terminal.
+A C++ Chess Game with full rules, move validation, and special moves, played in the terminal.
 
 ## Features
 *   **Full Chess Rules:** Implements all standard chess rules.
@@ -7,27 +7,32 @@ A C++ Chess Engine with full rules, move validation, and special moves, played i
 *   **Special Moves:** Supports castling, pawn promotion, and en passant.
 *   **Game End Conditions:** Detects check, checkmate, and stalemate.
 *   **Terminal Interface:** Playable in a standard terminal environment.
+---
 
 ## System Requirements
-*   A C++17 compatible compiler (e.g., g++)
+*   A C++17 compatible compiler (e.g g++ / clang)
 *   `make` build automation tool
+
+---
 
 ## How to Install and Run
 1.  **Clone the repository:**
-    ```sh
+    ```bash
     git clone https://github.com/your-username/Chess-Game.git
     cd Chess-Game
     ```
-2.  **Build the game:**
-    Run the `make` command to compile the source code.
-    ```sh
-    make
+2. **Build and Run:**\
+    You can either use make or compile each yourself.\
+    we will show the method using make.
+    ```bash
+    make run
     ```
-3.  **Run the game:**
-    Execute the compiled program to start playing.
-    ```sh
-    ./chess
+3. **Clean up after Game**\
+    After the game clean up the object and executable files
+    ```bash
+    make clean
     ```
+---
 
 ## Code Overview
 The project is structured using object-oriented principles in C++.
@@ -39,4 +44,15 @@ The project is structured using object-oriented principles in C++.
 *   `Position`: A simple class to represent a position on the board.
 *   `SpecialMoves`: A utility class with static methods to handle special moves like castling, promotion, and en passant.
 
-The `main.cpp` file creates a `Game` object and starts the game loop. The game is played by entering moves in algebraic notation (e.g., "e2e4").
+The `main.cpp` file creates a `Game` object and starts the game loop. The game is played by entering moves in algebraic notation (e.g., "e2 e4").
+
+---
+
+## Game rules
+
+* These follow standard FIDE chess rules -> [FIDE Chess Rule](https://handbook.fide.com/chapter/e012023)
+* The input should be in the format <from><space><to>. Any other format in not suitable.
+
+## Teams
+
+1. ***Akshai Krishna KP***

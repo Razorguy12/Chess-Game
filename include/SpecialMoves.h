@@ -1,15 +1,3 @@
-/**
- * @file SpecialMoves.h
- * @brief Defines the SpecialMoves class for handling special chess moves
- * 
- * @details This header file contains the SpecialMoves class which provides static
- * methods for handling special chess moves that don't follow standard piece movement
- * rules. These include castling (kingside and queenside), pawn promotion, and en passant
- * capture. The class uses a utility class pattern with all static methods, as these
- * operations don't require instance state. Each method validates the move conditions
- * and performs the necessary board modifications.
- */
-
 #ifndef SPECIALMOVES_H
 #define SPECIALMOVES_H
 

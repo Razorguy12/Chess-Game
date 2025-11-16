@@ -1611,12 +1611,14 @@ O-O" \
     "Cannot castle while in check"
 
 test_invalid_move "Cannot Castle When Destination In Check" \
-    "e2 e4
+    "f2 f3
 d7 d5
-g1 f3
-c8 g4
-f1 c4
-g4 f3
+e2 e4
+d5 e4
+f1 b5
+c7 c6
+b5 a4
+d8 b6
 O-O" \
     "Cannot castle into check"
 
