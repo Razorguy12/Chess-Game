@@ -31,7 +31,7 @@ run_test() {
     echo "White" > "$input_file"
     echo "Black" >> "$input_file"
     echo "$input" >> "$input_file"
-    echo "quit" >> "$input_file"
+    echo -e "quit\n1" >> "$input_file"
     
     # Run the program with timeout and capture output
     local output=$(timeout 5 ./chess < "$input_file" 2>&1)
@@ -81,7 +81,7 @@ test_invalid_move() {
     echo "White" > "$input_file"
     echo "Black" >> "$input_file"
     echo "$input" >> "$input_file"
-    echo "quit" >> "$input_file"
+    echo -e "quit\n1" >> "$input_file"
     
     local output=$(timeout 5 ./chess < "$input_file" 2>&1)
     local exit_code=$?

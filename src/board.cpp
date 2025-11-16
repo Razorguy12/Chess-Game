@@ -138,7 +138,7 @@ bool Board::isUnderAttack(const Position& pos, Color byColor) const {
         for (int j = 0; j < 8; j++) {
             Piece* piece = getPiece(i, j);
             if (piece && piece->getColor() == byColor) {
-                if (piece->isValidMove(pos, const_cast<Board&>(*this))) {
+                if (piece->isValidMove(pos, *this)) {
                     return true;
                 }
             }

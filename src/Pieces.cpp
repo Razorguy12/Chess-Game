@@ -29,7 +29,7 @@ std::string Piece::getSymbol() const {
     }
 }
 
-bool Pawn::isValidMove(const Position& to, Board& board) const {
+bool Pawn::isValidMove(const Position& to, const Board& board) const {
     int rowDiff = to.getRow() - position.getRow();
     int colDiff = std::abs(to.getCol() - position.getCol());
     int direction = (color == Color::WHITE) ? -1 : 1;
@@ -61,7 +61,7 @@ bool Pawn::isValidMove(const Position& to, Board& board) const {
     return false;
 }
 
-bool Rook::isValidMove(const Position& to, Board& board) const {
+bool Rook::isValidMove(const Position& to, const Board& board) const {
     if (position == to) return false;
     
     // Must move in straight line (horizontal or vertical)
@@ -82,7 +82,7 @@ bool Rook::isValidMove(const Position& to, Board& board) const {
     return true;
 }
 
-bool Knight::isValidMove(const Position& to, Board& board) const {
+bool Knight::isValidMove(const Position& to, const Board& board) const {
     int rowDiff = std::abs(to.getRow() - position.getRow());
     int colDiff = std::abs(to.getCol() - position.getCol());
     
@@ -99,7 +99,7 @@ bool Knight::isValidMove(const Position& to, Board& board) const {
     return true;
 }
 
-bool Bishop::isValidMove(const Position& to, Board& board) const {
+bool Bishop::isValidMove(const Position& to, const Board& board) const {
     if (position == to) return false;
     
     int rowDiff = std::abs(to.getRow() - position.getRow());
@@ -123,7 +123,7 @@ bool Bishop::isValidMove(const Position& to, Board& board) const {
     return true;
 }
 
-bool Queen::isValidMove(const Position& to, Board& board) const {
+bool Queen::isValidMove(const Position& to, const Board& board) const {
     if (position == to) return false;
     
     int rowDiff = std::abs(to.getRow() - position.getRow());
@@ -147,7 +147,7 @@ bool Queen::isValidMove(const Position& to, Board& board) const {
     return true;
 }
 
-bool King::isValidMove(const Position& to, Board& board) const {
+bool King::isValidMove(const Position& to, const Board& board) const {
     int rowDiff = std::abs(to.getRow() - position.getRow());
     int colDiff = std::abs(to.getCol() - position.getCol());
     

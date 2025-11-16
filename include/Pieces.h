@@ -73,7 +73,7 @@ public:
      * This function checks if the move follows the piece's movement pattern but
      * does not check for check conditions or board state beyond piece-specific rules.
      */
-    virtual bool isValidMove(const Position& to, class Board& board) const = 0;
+    virtual bool isValidMove(const Position& to, const class Board& board) const = 0;
     
     /**
      * @brief Gets the display symbol for the piece
@@ -154,7 +154,7 @@ public:
      * @param pos Initial position
      */
     Pawn(Color c, Position pos) : Piece(c, pos, 'P') {}
-    bool isValidMove(const Position& to, class Board& board) const override;
+    bool isValidMove(const Position& to, const class Board& board) const override;
     std::string getName() const override { return "Pawn"; }
 };
 
@@ -175,7 +175,7 @@ public:
      * @param pos Initial position
      */
     Rook(Color c, Position pos) : Piece(c, pos, 'R') {}
-    bool isValidMove(const Position& to, class Board& board) const override;
+    bool isValidMove(const Position& to, const class Board& board) const override;
     std::string getName() const override { return "Rook"; }
 };
 
@@ -195,7 +195,7 @@ public:
      * @param pos Initial position
      */
     Knight(Color c, Position pos) : Piece(c, pos, 'N') {}
-    bool isValidMove(const Position& to, class Board& board) const override;
+    bool isValidMove(const Position& to, const class Board& board) const override;
     std::string getName() const override { return "Knight"; }
 };
 
@@ -216,7 +216,7 @@ public:
      * @param pos Initial position
      */
     Bishop(Color c, Position pos) : Piece(c, pos, 'B') {}
-    bool isValidMove(const Position& to, class Board& board) const override;
+    bool isValidMove(const Position& to, const class Board& board) const override;
     std::string getName() const override { return "Bishop"; }
 };
 
@@ -237,7 +237,7 @@ public:
      * @param pos Initial position
      */
     Queen(Color c, Position pos) : Piece(c, pos, 'Q') {}
-    bool isValidMove(const Position& to, class Board& board) const override;
+    bool isValidMove(const Position& to, const class Board& board) const override;
     std::string getName() const override { return "Queen"; }
 };
 
@@ -258,7 +258,7 @@ public:
      * @param pos Initial position
      */
     King(Color c, Position pos) : Piece(c, pos, 'K') {}
-    bool isValidMove(const Position& to, class Board& board) const override;
+    bool isValidMove(const Position& to, const class Board& board) const override;
     std::string getName() const override { return "King"; }
 };
 
