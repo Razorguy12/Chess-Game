@@ -1,7 +1,7 @@
 /**
  * @file Player.h
  * @brief Defines the Player class for representing chess players
- * 
+ *
  * @details This header file contains the Player class which encapsulates player
  * information and game state for a chess player. The class stores the player's name,
  * color (white or black), check status, score, and captured piece value. It provides
@@ -20,7 +20,7 @@
 /**
  * @class Player
  * @brief Represents a chess player with associated game state
- * 
+ *
  * @details The Player class stores and manages player-specific information including
  * name, color, check status, score, and captured piece values. The isInCheck flag
  * tracks whether the player's king is currently in check, which is updated by the
@@ -29,7 +29,8 @@
  * getters and setters for all attributes, with utility methods to check color and
  * reset game state. The reset() method allows reinitializing player state for a new game.
  */
-class Player {
+class Player
+{
 private:
     std::string name;
     Color color;
@@ -43,30 +44,30 @@ public:
      * @details Initializes player with empty name, WHITE color, and zero values
      */
     Player();
-    
+
     /**
      * @brief Parameterized constructor
      * @param playerName Name of the player
      * @param playerColor Color of the player (WHITE or BLACK)
      * @details Initializes player with specified name and color, sets other values to defaults
      */
-    Player(const std::string& playerName, Color playerColor);
-    
+    Player(const std::string &playerName, Color playerColor);
+
     /**
      * @brief Copy constructor
      * @param other Player object to copy from
      * @details Creates a deep copy of the player's data
      */
-    Player(const Player& other);
-    
+    Player(const Player &other);
+
     /**
      * @brief Assignment operator
      * @param other Player object to assign from
      * @return Reference to this Player object
      * @details Performs deep copy assignment, handling self-assignment
      */
-    Player& operator=(const Player& other);
-    
+    Player &operator=(const Player &other);
+
     /**
      * @brief Destructor
      * @details Cleans up player resources (currently no dynamic memory to manage)
@@ -78,25 +79,25 @@ public:
      * @return String containing the player's name
      */
     std::string getName() const;
-    
+
     /**
      * @brief Gets the player's color
      * @return Color enum value (WHITE or BLACK)
      */
     Color getColor() const;
-    
+
     /**
      * @brief Gets the check status
      * @return true if player's king is in check, false otherwise
      */
     bool getIsInCheck() const;
-    
+
     /**
      * @brief Gets the player's score
      * @return Integer score value
      */
     int getScore() const;
-    
+
     /**
      * @brief Gets the total value of captured pieces
      * @return Integer value representing total captured piece value
@@ -109,27 +110,27 @@ public:
      * @brief Sets the player's name
      * @param playerName New name for the player
      */
-    void setName(const std::string& playerName);
-    
+    void setName(const std::string &playerName);
+
     /**
      * @brief Sets the check status
      * @param inCheck Boolean indicating if king is in check
      * @details Updated by game logic after each move to reflect current board state
      */
     void setIsInCheck(bool inCheck);
-    
+
     /**
      * @brief Sets the player's score
      * @param newScore New score value
      */
     void setScore(int newScore);
-    
+
     /**
      * @brief Sets the captured piece value
      * @param value New captured piece value
      */
     void setCapturedPieceValue(int value);
-    
+
     /**
      * @brief Adds to the captured piece value
      * @param value Value to add to current captured piece total
@@ -137,21 +138,21 @@ public:
      * This method is preferred over setCapturedPieceValue() for captures.
      */
     void addCapturedPieceValue(int value);
-    
+
     /**
      * @brief Checks if player is white
      * @return true if color is WHITE, false otherwise
      * @details Convenience method for color checking
      */
     bool isWhite() const;
-    
+
     /**
      * @brief Checks if player is black
      * @return true if color is BLACK, false otherwise
      * @details Convenience method for color checking
      */
     bool isBlack() const;
-    
+
     /**
      * @brief Resets player state for a new game
      * @details Resets check status, score, and captured piece value to zero.
@@ -161,4 +162,3 @@ public:
 };
 
 #endif
-
