@@ -53,6 +53,10 @@ The `main.cpp` file creates a `Game` object and starts the game loop. The game i
 * These follow standard FIDE chess rules -> [FIDE Chess Rule](https://handbook.fide.com/chapter/e012023)
 * The input should be in the format <from><space><to>. Any other format in not suitable.
 
+## Output
+<video src="Asset/run_chess.mp4" autoplay loop muted playsinline width="600"></video>
+
+
 ## Teams
 
 1. ***Akshai Krishna KP***
