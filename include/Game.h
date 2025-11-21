@@ -53,12 +53,12 @@ public:
     Player *getCurrentPlayerObject() const { return currentPlayer; }
 
     /**
-     * @brief Get pointer to white player (NO const_cast used)
+     * @brief Get pointer to white player 
      */
     Player *getWhitePlayer() { return &whitePlayer; }
 
     /**
-     * @brief Get pointer to black player (NO const_cast used)
+     * @brief Get pointer to black player 
      */
     Player *getBlackPlayer() { return &blackPlayer; }
 
