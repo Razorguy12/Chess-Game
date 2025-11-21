@@ -222,29 +222,30 @@ bool Board::wouldBeInCheck(const Position &from, const Position &to, Color color
     if (isEmpty(from))
         return true;
 
-    // Save state
-    Piece *movingPiece = getPiece(from);
-    bool movingPieceHadMoved = movingPiece->hasMovedBefore();
+    // Save the current state
+    std::unique_ptr<Piece> movingPiece = removePiece(from);
+    std::unique_ptr<Piece> capturedPiece = removePiece(to);
+
+    // Backup flags
+    bool hadMovedFlag = movingPiece->hasMovedBefore();
+    Position originalPos = from;
 
     // Simulate the move
-    std::unique_ptr<Piece> tempMoving = const_cast<Board *>(this)->removePiece(from);
-    std::unique_ptr<Piece> tempCaptured = const_cast<Board *>(this)->removePiece(to);
+    movingPiece->setPosition(to);
+    setPiece(to, std::move(movingPiece));
 
-    tempMoving->setPosition(to);
-    const_cast<Board *>(this)->setPiece(to, std::move(tempMoving));
-
-    bool inCheck = isInCheck(color);
+    bool checkStatus = isInCheck(color);
 
     // Undo the move
-    std::unique_ptr<Piece> restore = const_cast<Board *>(this)->removePiece(to);
-    restore->setPosition(from);
-    restore->setHasMoved(movingPieceHadMoved);
-    const_cast<Board *>(this)->setPiece(from, std::move(restore));
+    std::unique_ptr<Piece> restorePiece = removePiece(to);
+    restorePiece->setPosition(originalPos);
+    restorePiece->setHasMoved(hadMovedFlag);
+    setPiece(originalPos, std::move(restorePiece));
 
-    if (tempCaptured)
-    {
-        const_cast<Board *>(this)->setPiece(to, std::move(tempCaptured));
-    }
+    // Restore captured piece if any
+    if (capturedPiece)
+        setPiece(to, std::move(capturedPiece));
 
-    return inCheck;
+    return checkStatus;
 }
+
