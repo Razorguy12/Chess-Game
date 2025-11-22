@@ -77,7 +77,6 @@ void Game::playTurn()
 
     std::string input1, input2;
     std::cin >> input1;
-    
 
     if (input1 == "quit" || input1 == "exit" || input1 == "q")
     {
@@ -128,11 +127,6 @@ void Game::playTurn()
         }
         return;
     }
-    Position check=parsePosition(input1);
-    if(!check.isValid())
-    {
-        throw std::runtime_error("Invalid move!");
-    }
 
     if (input1.length() == 4)
     {
@@ -152,11 +146,16 @@ void Game::playTurn()
         return;
     }
 
+    Position check = parsePosition(input1);
+    if (!check.isValid())
+    {
+        throw std::runtime_error("Invalid move!");
+    }
     std::cin >> input2;
 
     if (!makeMove(input1, input2))
     {
-       throw std::runtime_error("Invalid move!");
+        throw std::runtime_error("Invalid move!");
     }
 }
 
