@@ -12,11 +12,6 @@
 #include <string>
 #include <stdexcept>
 
-class ChessException : public std::runtime_error
-{
-public:
-    explicit ChessException(const std::string &msg) : std::runtime_error(msg) {}
-};
 
 class Game
 {

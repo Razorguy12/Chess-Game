@@ -40,10 +40,6 @@ void Game::start()
         {
             playTurn();
         }
-        catch (const ChessException &e)
-        {
-            std::cout << "Error: " << e.what() << "\n";
-        }
         catch (const std::exception &e)
         {
             std::cout << "Unexpected error: " << e.what() << "\n";
@@ -154,7 +150,7 @@ void Game::playTurn()
 
     if (!makeMove(input1, input2))
     {
-        throw ChessException("Invalid move!");
+       throw std::runtime_error("Invalid move!");
     }
 }
 
@@ -171,12 +167,12 @@ bool Game::makeMove(const std::string &from, const std::string &to)
     Piece *piece = board.getPiece(fromPos);
     if (!piece)
     {
-        throw ChessException("No piece at that position!");
+        throw std::runtime_error("No piece at that position!");
     }
 
     if (piece->getColor() != currentPlayer->getColor())
     {
-        throw ChessException("That's not your piece!");
+        throw std::runtime_error("That's not your piece!");
     }
 
     if (!piece->isValidMove(toPos, board))
@@ -187,7 +183,7 @@ bool Game::makeMove(const std::string &from, const std::string &to)
     // Check if move would leave king in check
     if (board.wouldBeInCheck(fromPos, toPos, currentPlayer->getColor()))
     {
-        throw ChessException("Move would leave king in check!");
+        throw std::runtime_error("Move would leave king in check!");
     }
 
     // Check for captured piece BEFORE moving
@@ -296,7 +292,7 @@ void Game::handleCastling(const std::string &command)
     {
         if (!SpecialMoves::canCastleKingSide(currentPlayer->getColor(), board))
         {
-            throw ChessException("Cannot castle kingside!");
+            throw std::runtime_error("Cannot castle kingside!");
         }
         SpecialMoves::performCastling(currentPlayer->getColor(), true, board);
     }
@@ -304,7 +300,7 @@ void Game::handleCastling(const std::string &command)
     {
         if (!SpecialMoves::canCastleQueenSide(currentPlayer->getColor(), board))
         {
-            throw ChessException("Cannot castle queenside!");
+            throw std::runtime_error("Cannot castle queenside!");
         }
         SpecialMoves::performCastling(currentPlayer->getColor(), false, board);
     }
