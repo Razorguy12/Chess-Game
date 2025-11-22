@@ -80,7 +80,7 @@ void Game::playTurn()
     Position check=parsePosition(input1);
     if(!check.isValid())
     {
-        throw ChessException("Invalid move!");
+        throw std::runtime_error("Invalid move!");
     }
 
     if (input1 == "quit" || input1 == "exit" || input1 == "q")
